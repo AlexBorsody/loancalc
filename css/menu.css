@@ -1,0 +1,23 @@
+/* Styling for menu */
+.ui-body-c {
+	background: black url('http://www.freeenergymedia.com/finance/images/bg-stripe.png') repeat left top;
+	border: 1px solid #B3B3B3;
+	color: #333;
+	text-shadow: none;
+}
+#personal-financing-menu .menu-navigation ul li {
+	width:100% !important;
+	padding:0px !important;
+}
+#personal-financing-menu .menu-navigation ul li a{
+	text-align:left;
+}
+.menu-navigation .ui-btn-inner{
+	padding:10px 0px 10px 34px;
+}
+.ui-btn-icon-top .ui-btn-inner .ui-icon, .ui-btn-icon-bottom .ui-btn-inner .ui-icon{
+	left:10px;
+	margin-left:0px;
+	margin-top: -3px;
+}
+

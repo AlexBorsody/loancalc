@@ -1,0 +1,861 @@
+<html>
+	<head>
+		<title>Personal Finance</title> 
+
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="phonegap.js"></script>
+		<script src="libraries/RGraph.common.core.js" ></script>
+		<script src="libraries/RGraph.common.context.js" ></script>
+		<script src="libraries/RGraph.common.annotate.js" ></script>
+		<script src="libraries/RGraph.common.effects.js" ></script>
+		<script src="libraries/RGraph.line.js" ></script>
+		<script src="libraries/loan.js" ></script>
+		<script>	
+		if (document.images) {
+			img1 = new Image();
+			img1.src = "css/images/active-menu_01.png";
+			img2 = new Image();
+			img2.src = "css/images/active-menu_02.png";
+			img3 = new Image();
+			img3.src = "css/images/active-menu_03.png";
+			img4 = new Image();
+			img4.src = "css/images/active-menu_04.png";
+			img5 = new Image();
+			img5.src = "css/images/active-menu_05.png";
+		}
+		</script>
+	</head>
+	<body>
+	<!-- Page Mortgage loan Start-->
+	<div data-role="page" id="loan-mortgage-input-page">
+		<!-- Header Section -->
+		<div data-position="fixed" data-role="header">
+			<a href="menu.html" class="ui-btn-left ui-key-button" data-rel="page" data-transition="slide">&nbsp;</a>
+				<div data-type="horizontal"   data-role="controlgroup">
+					<a href="#loan-mortgage-input-page" class="ui-btn-active" data-transition="slide"  data-role="button">Mortgage</a>
+					<a href="#loan-auto-input-page"  id="auto-input-button" data-transition="slide" data-role="button">Auto</a>
+					<a href="#loan-student-input-page"  id="student-input-button" data-transition="slide" data-role="button">Student</a>
+				</div>
+				<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+		</div>
+		<!-- End Header Section-->
+		<!-- Content Section-->
+		<div data-role="content">
+
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="input-slider-purchase">Purchase Price:</label>
+						<input type="range" name="input-slider-purchase" class="range-slider" id="input-slider-purchase" value="200000" min="50000" max="1000000" step="1000" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				
+				<div class="input-fields" >				
+				    <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Monthly Income</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="500" max="10000" value="100000" name="monthly-income" id="monthly-income" value=""  >
+							<label for="monthly-income">
+								<img class="inputimage" src="css/images/orangekey.png"/>
+							</label>
+						</input>
+						</div>
+				    </div>
+				    
+				     <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Down Payment</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="0" max="99" step="1" name="down-payment" id="down-payment" value="20">
+							<label for="down-payment">
+							<div class="dwn-per">%</div>
+							<img class="inputimage" src="css/images/orangekey.png"/>
+							</label>
+					    	</input>
+					    </div>
+				    </div>
+				    
+				     <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Mortgage term</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="5" max="40" step="5" name="mortgage-term" id="mortgage-term" value="30" >
+						<label for="mortgage-term">
+							<img class="inputimage" src="css/images/orangekey.png"/>
+						</label>
+					    	</input>
+					    </div>
+				    </div>
+				</div>
+				
+				<div class="slider-container clear">
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="input-slider-rate">Annual Percentage Rate (APR):</label>
+						<!--<input type="range" name="input-slider-rate" id="input-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />-->
+						<input type="range" name="input-slider-rate" id="input-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />
+					</div>
+				</div>
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-mortgage-calculate-page" data-transition="slide" id="mortgage-calculate-page" data-role="button">Calculate</a>
+						</li>
+						<li>
+							<a href="#mortgage-graph-page"  data-transition="slide" id="mortgage-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<!-- End Content Section-->
+		<!-- Footer Section -->
+			<!-- /footer -->
+			<script type="text/javascript">
+				$("#loan-mortgage-input-page").live('pageinit',function() {
+					getDefaultValue();
+					loadSettings();
+					fixdollor('#input-slider-purchase');
+					$('#mortgage-calculate-page').bind('vclick',function(event,data){
+						localStorage.clear();
+						saveLoanValues();
+					});
+					$('#mortgage-graph-page').bind('vclick',function(event,data){
+						localStorage.clear();
+						saveLoanValues();
+					});
+					$('#input-slider-purchase').bind('change',function(event,ui){
+						fixdollor('#input-slider-purchase');
+					 });
+				});
+				$("#loan-mortgage-input-page").live('pageshow',function(){
+					getDefaultValue();
+				});
+			</script>
+		<!-- End Footer Section-->
+	</div>
+		<!--------------Mortgage Output Page-------------------------->
+		<div data-role="page" id="loan-mortgage-calculate-page">
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				<div data-type="horizontal"   data-role="controlgroup">
+					<a href="#loan-mortgage-input-page" class="ui-btn-active" data-transition="slide"  data-role="button">Mortgage</a>
+					<a href="#loan-auto-input-page"  id="auto-input-button" data-transition="slide" data-role="button">Auto</a>
+					<a href="#loan-student-input-page"  id="student-input-button" data-transition="slide" data-role="button">Student</a>
+				</div>
+					<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+			</div><!--End Header-->
+			
+			<div data-role="content"><!----Content--->
+
+				<div class="result-content">
+					Total amount financed = <span>$</span><span id="total-amt">$638.48</span><br>
+
+					Mortgage payment per month = <span>$</span><span id="mortgage-payment">$638.48</span><br>
+
+					Percentage of Income = <span id="percent-income">15.54%</span><span>%</span><br>
+
+					Do i qualify for mortgage? <span id="qualify">No</span>
+				</div>
+				
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="output-slider-purchase">Purchase Price:</label>
+						<input type="range" name="output-slider-purchase" class="range-slider" id="output-slider-purchase" value="200000" min="50000" max="1000000" step="1000" data-theme="a" data-track-theme="b" />
+
+					</div>
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="output-slider-rate">Annual Percentage Rate (APR):</label>
+						<input type="range" name="output-slider-rate" id="output-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />
+
+					</div>
+
+				</div>
+				
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-mortgage-input-page" data-transition="slide" id="mortgage-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#mortgage-graph-page" data-transition="slide"  id="mortgage-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+			</div><!------Content----->
+		<!-- /footer -->
+		    <script type="text/javascript">
+		    		$("#loan-mortgage-calculate-page").live('pageinit',function() {
+		    			fillOutputSlider();
+						calculate();
+						fixdollor('#output-slider-purchase');
+					  	//* purches slider change event */
+					  	$('#output-slider-purchase').bind('change',function(event,ui){
+					  		updateSlider();	
+					  		fixdollor('#output-slider-purchase');		
+					  	});
+					  	/* rate slider change event */
+					  	$('#output-slider-rate').bind('change',function(event,ui){
+					  		updateRate();
+					  	});
+				  });
+				  $('#loan-mortgage-calculate-page').live('pageshow',function(event,ui){
+				  	//alert('Page Show Event');
+				  		fillOutputSlider();
+						calculate();
+						fixdollor('#output-slider-purchase');
+					  	//* purches slider change event */
+					  	$('#output-slider-purchase').bind('change',function(event,ui){
+					  		updateSlider();
+					  		fixdollor('#output-slider-purchase');
+					  	});
+					  	/* rate slider change event */
+					  	$('#output-slider-rate').bind('change',function(event,ui){
+					  		updateRate();
+					  	});
+				  });
+		    </script>
+		</div>
+		<div data-role="page" id="mortgage-graph-page"><!--start page-->
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				<div data-type="horizontal"   data-role="controlgroup">
+					<a href="#loan-mortgage-input-page" class="ui-btn-active"  data-transition="slide" data-role="button">Mortgage</a>
+					<a href="#loan-auto-input-page"  id="auto-input-button" data-transition="slide" data-role="button">Auto</a>
+					<a href="#loan-student-input-page"  id="student-input-button" data-transition="slide" data-role="button">Student</a>
+				</div>
+					<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+			</div><!--End Header-->
+			<!-- Content area start from here-->
+			<div data-role="content"><!----Content--->
+
+				<div class="result-content">
+					<canvas id="mortgage-graph" width="250" height="200"></canvas>
+				</div>
+				
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="graph-slider-rate">Annual Percentage Rate (APR):</label>
+						<input type="range" name="graph-slider-rate" id="graph-slider-rate" value="5" min="1" max="100" step="0.05" data-theme="a" data-track-theme="b" />
+					</div>
+				</div>
+				
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-mortgage-input-page" data-transition="slide"  id="mortgage-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#loan-mortgage-calculate-page" data-transition="slide" id="mortgage-calculate-page" data-role="button">Calculate</a>
+						</li>
+					</ul>
+				</div>
+				<script type="text/javascript">
+					function generateMortgageGraph(){
+						//alert("kill Bill");
+						var rate= $('#graph-slider-rate').val();
+						var cordinates= new Array();
+						cordinates[0]=0.1;
+						ret_arr = new Array();
+						for(i=1;i<=12;i++){
+							localStorage.rSlider=i;
+							if(i==1) {
+								cordinates[i] = calculateMotgageGraph(1);
+							}
+							else {
+								cordinates[i] = calculateMotgageGraph(0);							
+							}
+						}
+						RGraph.Clear(document.getElementById("mortgage-graph"));
+						var line6 = new RGraph.Line('mortgage-graph',cordinates);
+						var grad = line6.context.createLinearGradient(0,0,0,250);
+						grad.addColorStop(0,'rgba(0, 113, 83,1)');
+						grad.addColorStop(1,'rgba(0,0,0,0)');
+						line6.Set('chart.filled', true);
+						line6.Set('chart.fillstyle',['#047052']);
+						line6.Set('chart.colors', ['black']);
+						line6.Set('chart.linewidth', 0.5);
+						line6.Set('chart.units.pre', '$');
+						line6.Set('chart.gutter.left', 55);
+						line6.Set('chart.gutter.right', 15);
+						line6.Set('chart.gutter.bottom', 30);
+						line6.Set('chart.title.yaxis.pos',0.09);
+						line6.Set('chart.title.xaxis.pos',0.8);
+						line6.Set('chart.text.color','black');
+						line6.Set('chart.text.size',6);
+						line6.Set('chart.labels',['0',12]);
+						//line6.Set('chart.labels.above',true);
+						line6.Set('chart.title.yaxis','Equity');
+						line6.Set('chart.title.xaxis','Years');
+						line6.Set('chart.key.position', 'gutter');
+						line6.Set('chart.key.position.gutter.boxed', false);
+						line6.Draw();
+					}
+				$('#mortgage-graph-page').live('pageinit',function(){
+					fillMortgageGraphSlider();
+					calculatePPForGraph();
+					//generateMortgageGraph();					
+					
+					$('#graph-slider-rate').bind('change',function(){
+						localStorage.rslider=$('#graph-slider-rate').val();
+						generateMortgageGraph()
+					});
+				});
+				
+				$('#mortgage-graph-page').live('pageshow',function(event,ui) {
+					fillMortgageGraphSlider();
+					generateMortgageGraph();
+					$('#graph-slider-rate').bind('change',function() {
+						localStorage.rslider=$('#graph-slider-rate').val();
+						generateMortgageGraph()
+					});
+				});
+				</script>
+			</div><!------Content----->
+			<!--- Content area ends heare--->
+		<!-- /footer -->
+		</div><!-- End graph page -->
+		<!-----------------Auto Page-------------------->
+		<div data-role="page" id="loan-auto-input-page" >
+				<div data-position="fixed" data-role="header"><!-----Header------->
+				<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide" data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" data-transition="slide" class="ui-btn-active" id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" data-transition="slide"  id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+				<!-----------Content------------->
+				<div data-role="content"><!----Content--->
+
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="input-auto-slider-purchase">Purchase Price:</label>
+						<input type="range" name="input-auto-slider-purchase" class="range-slider" id="input-auto-slider-purchase" value="20000" min="2000" max="50000" step="500" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				<div class="input-fields" >
+				     <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Down Payment</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="0" max="99" step="1" name="auto-down-payment" id="auto-down-payment" value="20">
+						<img class="inputimage" src="css/images/orangekey.png"/>
+						</input>
+					    </div>
+				    </div>
+				    				
+				    <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Total Amount Financed</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="2000" max="50000" name="total-amt-financed" id="total-amt-financed" value="">
+						<img class="inputimage" src="css/images/orangekey.png"/>
+						</input>
+						</div>
+				    </div>
+				    			    
+				     <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Number of Months</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="12" max="60" step="1" name="num-months" id="num-months" value="36" >
+						<img class="inputimage" src="css/images/orangekey.png"/>
+						</input>
+					    </div>
+				    </div>
+				</div>
+
+				<div class="slider-container clear">
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="input-auto-slider-rate">Annual Interest Rate (APR):</label>
+						<input type="range" name="input-auto-slider-rate" id="input-auto-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-auto-calculate-page" data-transition="slide"  id="auto-calculate-page" data-role="button">Calculate</a>
+						</li>
+						<li>
+							<a href="#loan-auto-graph-page" data-transition="slide" id="auto-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+			</div><!---End content--->
+				
+				
+		<!-- /footer -->
+			<script type="text/javascript">
+					$("#loan-auto-input-page").live('pageinit',function() {
+						fixdollor('#input-auto-slider-purchase');
+						$('#auto-calculate-page').bind('vclick',function(event,data){
+							saveAutoLoanValues();
+						});
+						$('#auto-graph-page').bind('vclick',function(event,data){
+							saveAutoLoanValues();
+						});
+						$('#input-auto-slider-purchase').bind('change',function(event,ui){
+							localStorage.pSlider=$('#input-auto-slider-purchase').val();
+							localStorage.dPayment=$('#auto-down-payment').val();
+							//alert('');
+							$('#total-amt-financed').val(getTotalAmountFinanced());		
+							fixdollor('#input-auto-slider-purchase');
+							//alert();			
+						});	
+			 
+				  });
+			</script>
+		</div>
+		<!--Auto loan calculate page-->
+		<div data-role="page" id="loan-auto-calculate-page">
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide" data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" class="ui-btn-active" data-transition="slide" id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" data-transition="slide"  id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+				<!-----------Content------------->
+				<div data-role="content"><!----Content--->
+				
+				<div class="result-content">
+					Total amount financed = <span>$</span><span id="auto-total-amt">$638.48</span><br>
+
+					Monthly payment = <span>$</span><span id="auto-monthly-payment">$638.48</span><br>
+
+				</div>
+				
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="output-auto-slider-purchase">Purchase Price:</label>
+						<input type="range" name="output-auto-slider-purchase" class="range-slider" id="output-auto-slider-purchase" value="20000" min="2000" max="50000" step="500" data-theme="a" data-track-theme="b" />
+
+					</div>
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="output-auto-slider-rate">Annual Interest Rate (APR):</label>
+						<input type="range" name="output-auto-slider-rate" id="output-auto-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>				
+				
+				
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-auto-input-page" data-transition="slide"  id="auto-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#loan-auto-graph-page" data-transition="slide" id="auto-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+				</div><!---end content-->
+		<!-- /footer -->
+			<script type="text/javascript">
+				$("#loan-auto-calculate-page").live('pageinit',function() {
+					$("#loan-auto-calculate-page").live('pageshow',function(event,ui) {
+						//alert('showing page show');
+						putSliderValues();
+						calculateAutoLoan();
+						fixdollor('#output-auto-slider-purchase');
+						$('#output-auto-slider-purchase').bind('change',function(event,ui){
+							localStorage.pSlider=$('#output-auto-slider-purchase').val();
+							calculateAutoLoan();
+							fixdollor('#output-auto-slider-purchase');					
+						});
+						$('#output-auto-slider-rate').bind('change',function(event,ui){
+							localStorage.rSlider=$('#output-auto-slider-rate').val();
+							calculateAutoLoan();					
+						});						  	
+					});
+				  });
+			</script>
+		</div>
+		<!----- Graph page ---->
+		<div data-role="page" id="loan-auto-graph-page">
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide" data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" data-transition="slide" class="ui-btn-active" id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" data-transition="slide"  id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+				<!-----------Content------------->
+				<div data-role="content"><!----Content--->
+					<!--Graph Area-->
+					<div id="graph-area"> 
+						<canvas id="auto-graph" width="250" height="200" style="cursor: default; ">[No canvas support]</canvas>
+					</div>
+					<!--End Graph Area-->
+					<div class="slider-container">
+						<div data-role="fieldcontain">
+							<div class="dollor">$</div>
+							<label style="width:80%;display:inline-block;"  for="graph-auto-slider-purchase">Purchase Price:</label>
+							<input type="range" name="graph-auto-slider-purchase" class="range-slider" id="graph-auto-slider-purchase" value="20000" min="2000" max="50000" step="500" data-theme="a" data-track-theme="b" />
+
+						</div>
+						<div data-role="fieldcontain">
+							<div class="percent">%</div>
+							<label style="width:80%;display:inline-block;"  for="graph-auto-slider-rate">Annual Interest Rate (APR):</label>
+							<input type="range" name="graph-auto-slider-rate" id="graph-auto-slider-rate" value="5" min="1" max="25" step="0.1" data-theme="a" data-track-theme="b" />
+
+						</div>
+					</div>
+					
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-auto-input-page" data-transition="slide"  id="auto-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#loan-auto-calculate-page" data-transition="slide"  id="auto-calculate-page" data-role="button">Calculate</a>
+						</li>
+					</ul>
+				</div>
+					</div><!--- end content--->
+		<!-- /footer -->
+				<script type="text/javascript">
+					//function for generating graph
+					function generateGraph(){
+						//alert(localStorage.rSlider);
+						if(localStorage.pSlider!='' && localStorage.pSlider!='undefined'){
+							var purchesPrice= localStorage.pSlider; }
+						if(localStorage.rSlider!='' && localStorage.rSlider!='undefined'){
+							var rate= localStorage.rSlider; }
+							
+						var cordinates= new Array();
+						cordinates[0]=0.1;
+						
+						for(i=1;i<=rate;i++){
+							localStorage.rSlider=i;
+							cordinates[i]= calculateAutoLoanGraph();
+						}
+						RGraph.Clear(document.getElementById("auto-graph"));
+						var line2 = new RGraph.Line('auto-graph',cordinates);
+						var grad = line2.context.createLinearGradient(0,0,0,250);
+						grad.addColorStop(0,'rgba(0, 113, 83,1)');
+						grad.addColorStop(1,'rgba(0,0,0,0)');
+						line2.Set('chart.filled', true);
+						line2.Set('chart.fillstyle',['#047052']);
+						line2.Set('chart.colors', ['black']);
+						line2.Set('chart.linewidth', 0.5);
+						line2.Set('chart.units.pre', '$');
+						line2.Set('chart.gutter.left', 55);
+						line2.Set('chart.gutter.right', 15);
+						line2.Set('chart.gutter.bottom', 30);
+						line2.Set('chart.title.yaxis.pos',0.09);
+						line2.Set('chart.title.xaxis.pos',0.8);
+						line2.Set('chart.text.color','black');
+						line2.Set('chart.text.size',6);
+						line2.Set('chart.labels',['0',rate]);
+						//line2.Set('chart.labels.above',true);
+						line2.Set('chart.title.yaxis','Monthly Payment');
+						line2.Set('chart.title.xaxis','Interest Rate');
+						line2.Set('chart.key.position', 'gutter');
+						line2.Set('chart.key.position.gutter.boxed', false);
+						line2.Draw();
+					}
+					$('#loan-auto-graph-page').live('pageinit',function(){
+						putGraphSliderValues();
+						generateGraph();
+						fixdollor('#graph-auto-slider-purchase');
+						$('#graph-auto-slider-purchase').bind('change',function(event,ui){      
+							localStorage.pSlider=$('#graph-auto-slider-purchase').val();
+							localStorage.rSlider=$('#graph-auto-slider-rate').val();
+							generateGraph();
+							fixdollor('#graph-auto-slider-purchase');
+						});
+						$('#graph-auto-slider-rate').bind('change',function(event,ui){
+							localStorage.rSlider=$('#graph-auto-slider-rate').val();
+							generateGraph();
+						});
+					});
+					$('#loan-auto-graph-page').live('pageshow',function(event,ui){
+						putGraphSliderValues();
+						generateGraph();
+						fixdollor('#graph-auto-slider-purchase');
+						$('#graph-auto-slider-purchase').bind('change',function(event,ui){      
+							localStorage.pSlider=$('#graph-auto-slider-purchase').val();
+							localStorage.rSlider=$('#graph-auto-slider-rate').val();
+							generateGraph();
+							fixdollor('#graph-auto-slider-purchase');
+						});
+						$('#graph-auto-slider-rate').bind('change',function(event,ui){
+							localStorage.rSlider=$('#graph-auto-slider-rate').val();
+							generateGraph();
+						});
+					});
+				</script>
+		</div>
+		
+		<!---  Student loan page ----->
+
+		<div data-role="page" id="loan-student-input-page">
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide" data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" data-transition="slide"  id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" class="ui-btn-active" data-transition="slide"  id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+				<!-----------Content------------->
+			<div data-role="content"><!----Content--->
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="input-slider-loan-amt">Loan Amount:</label>
+						<input type="range" name="input-slider-loan-amt" class="range-slider" id="input-slider-loan-amt" value="25000" min="1000" max="150000" step="1000" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				<div class="input-fields" >
+				     <div class="field-container">
+					    <div class="dataarealeft">&nbsp;&nbsp;&nbsp;Number of years</div>
+					    <div class="dataarearight">
+						<input data-theme="c"  type="number" min="10" max="40" step="1" name="num-year" id="num-year" value="30">
+					    	<img class="inputimage" src="css/images/orangekey.png"/>
+						</input>
+					    </div>
+				    </div>
+				</div>
+				<div class="slider-container clear">
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="annual-interest-rate">Annual Interest Rate:</label>
+						<input type="range" name="annual-interest-rate" id="annual-interest-rate" value="5" min="1" max="25" step="1" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-student-calculate-page" data-transition="slide"  id="student-calculate-page" data-role="button">Calculate</a>
+						</li>
+						<li>
+							<a href="#loan-student-graph-page" data-transition="slide"  id="student-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div><!----End Content---->
+
+	<!-- /footer -->
+			<script type="text/javascript">
+
+				  $("#loan-student-input-page").live('pageinit',function() {
+				  	fixdollor('#input-slider-loan-amt');
+					$('#student-calculate-page').bind('vclick',function(event,ui){
+						saveStudentLoanValues();						
+					});
+					$('#student-graph-page').bind('vclick',function(event,ui){
+						saveStudentLoanValues();						
+					});
+					$('#input-slider-loan-amt').bind('change',function(event,ui){
+						fixdollor('#input-slider-loan-amt');
+					});
+				  });			
+			</script>
+					
+		</div>
+		<!------------------------- Loan student output page------------------->
+		<div data-role="page" id="loan-student-calculate-page" >
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide"  data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" data-transition="slide"  id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" data-transition="slide" class="ui-btn-active" id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+			<div data-role="content"><!----Content--->
+				<div class="result-content">
+					Monthly Payment =<span>$</span><span id="std-monthly-payment">$638.48</span><br>
+				</div>
+				<div class="slider-container">
+					<div data-role="fieldcontain">
+						<div class="dollor">$</div>
+						<label style="width:80%;display:inline-block;"  for="output-slider-loan-amt">Loan Amount:</label>
+						<input type="range" name="output-slider-loan-amt" class="range-slider" id="output-slider-loan-amt" value="25000" min="1000" max="150000" step="1000" data-theme="a" data-track-theme="b" />
+
+					</div>
+					<div data-role="fieldcontain">
+						<div class="percent">%</div>
+						<label style="width:80%;display:inline-block;"  for="output-annual-interest-rate">Annual Interest Rate:</label>
+						<input type="range" name="output-annual-interest-rate" id="output-annual-interest-rate" value="5" min="1" max="25" step="1" data-theme="a" data-track-theme="b" />
+
+					</div>
+				</div>
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-student-input-page" data-transition="slide"  id="student-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#loan-student-graph-page" data-transition="slide"  id="student-graph-page" data-role="button">Graph</a>
+						</li>
+					</ul>
+				</div>
+			</div><!---End Content--->
+		<!-- /footer -->
+			<script type="text/javascript">
+				$("#loan-student-calculate-page").live('pageinit',function() {
+						fillSliderValues();
+						calculateStudentLoan();
+						fixdollor('#output-slider-loan-amt');
+						$('#output-slider-loan-amt').bind('change',function(event,ui){
+							updateLoanAmount();
+							fixdollor('#output-slider-loan-amt');
+						});
+						$('#output-annual-interest-rate').bind('change',function(event,ui){
+							updateAnnualRate();
+						});
+				});
+				$("#loan-student-calculate-page").live('showpage',function() {
+						fillSliderValues()
+						calculateStudentLoan();
+						$('#output-slider-loan-amt').bind('change',function(event,ui){
+							updateLoanAmount();
+							fixdollor('#output-slider-loan-amt');
+						});
+						$('#output-annual-interest-rate').bind('change',function(event,ui){
+							updateAnnualRate();
+						});
+				});
+			</script>
+		</div>
+		<div data-role="page" id="loan-student-graph-page"><!---graph page for student--->
+			<div data-position="fixed" data-role="header"><!-----Header------->
+			<a class="ui-btn-left ui-key-button" data-rel="dialog" data-transition="pop">&nbsp;</a>
+					<div data-type="horizontal"   data-role="controlgroup">
+						<a href="#loan-mortgage-input-page" data-transition="slide" data-role="button">Mortgage</a>
+						<a href="#loan-auto-input-page" data-transition="slide" id="auto-input-button" data-role="button">Auto</a>
+						<a href="#loan-student-input-page" data-transition="slide"  class="ui-btn-active" id="student-input-button" data-role="button">Student</a>
+					</div>
+						<a href="info.html"  class="ui-btn-right info-icon" data-rel="dialog" data-transition="pop">&nbsp;</a>
+				</div><!--End Header-->
+			<div data-role="content"><!----Content--->
+					<!--Graph Area-->
+					<div id="graph-area"> 
+						<canvas id="student-graph" width="250" height="200" style="cursor: default; ">[No canvas support]</canvas>
+					</div>
+					<!--End Graph Area-->
+					<div class="slider-container">
+						<div data-role="fieldcontain">
+							<div class="dollor">$</div>
+							<label style="width:80%;display:inline-block;"  for="graph-student-slider-purchase">Loan Amount:</label>
+							<input type="range" name="graph-student-slider-purchase" class="range-slider" id="graph-student-slider-purchase" value="25000" min="1000" max="150000" step="1000" data-theme="a" data-track-theme="b" />
+
+						</div>
+						<div data-role="fieldcontain">
+							<div class="percent">%</div>
+							<label style="width:80%;display:inline-block;"  for="graph-student-slider-rate">Annual Interest Rate:</label>
+							<input type="range" name="graph-student-slider-rate" id="graph-student-slider-rate" value="5" min="1" max="25" step="1" data-theme="a" data-track-theme="b" />
+
+						</div>
+					</div>
+					
+				<div data-role="result-nav" class='result-nav'>
+					<ul>
+						<li>
+							<a href="#loan-student-input-page" data-transition="slide"  id="student-input-page" data-role="button">Input</a>
+						</li>
+						<li>
+							<a href="#loan-student-calculate-page" data-transition="slide"  id="student-calculate-page" data-role="button">Calculate</a>
+						</li>
+					</ul>
+				</div>
+				</div><!--- end content--->
+		<!-- /footer -->
+				<script type="text/javascript">
+					//function for generating graph
+					function generateStudentGraph(){
+						//alert(localStorage.rSlider);
+						if(localStorage.loanAmount!='' && localStorage.loanAmount!='undefined'){
+							var loanAmt= localStorage.loanAmount; }
+						if(localStorage.interestRate!='' && localStorage.interestRate!='undefined'){
+							var loanRate= localStorage.interestRate; }
+							
+						var cordinates= new Array();
+						cordinates[0]=0.1;
+						
+						for(i=1;i<=loanRate;i++){
+							localStorage.interestRate=i;
+							cordinates[i]= calculateStudentLoanGraph();
+						}
+						RGraph.Clear(document.getElementById("student-graph"));
+						var line4 = new RGraph.Line('student-graph',cordinates);
+						var grad = line4.context.createLinearGradient(0,0,0,250);
+						grad.addColorStop(0,'rgba(0, 113, 83,1)');
+						grad.addColorStop(1,'rgba(0,0,0,0)');
+						line4.Set('chart.filled', true);
+						line4.Set('chart.fillstyle',['#047052']);
+						line4.Set('chart.colors', ['black']);
+						line4.Set('chart.linewidth', 0.5);
+						line4.Set('chart.units.pre', '$');
+						line4.Set('chart.gutter.left', 60);
+						line4.Set('chart.gutter.right', 15);
+						line4.Set('chart.gutter.bottom', 30);
+						line4.Set('chart.title.yaxis.pos',0.09);
+						line4.Set('chart.title.xaxis.pos',0.8);
+						line4.Set('chart.text.color','black');
+						line4.Set('chart.text.size',6);
+						line4.Set('chart.labels',['0',loanRate]);
+						//line4.Set('chart.labels.above',true);
+						line4.Set('chart.title.yaxis','Monthly Payment');
+						line4.Set('chart.title.xaxis','Interest Rate');
+						line4.Set('chart.key.position', 'gutter');
+						line4.Set('chart.key.position.gutter.boxed', false);
+						line4.Draw();
+					}
+					$('#loan-student-graph-page').live('pageinit',function(){
+						putStudentGraphValues();
+						generateStudentGraph();
+						fixdollor('#graph-student-slider-purchase');
+						$('#graph-student-slider-purchase').bind('change',function(event,ui){      
+							localStorage.loanAmount=$('#graph-student-slider-purchase').val();
+							localStorage.interestRate=$('#graph-student-slider-rate').val();
+							generateStudentGraph();
+							fixdollor('#graph-student-slider-purchase');
+						});
+						$('#graph-student-slider-rate').bind('change',function(event,ui){
+							localStorage.interestRate=$('#graph-student-slider-rate').val();
+							generateStudentGraph();
+						});
+					});
+					$('#loan-student-graph-page').live('pageshow',function(event,ui){
+						putStudentGraphValues();
+						generateStudentGraph();
+						fixdollor('#graph-student-slider-purchase');
+						$('#graph-student-slider-purchase').bind('change',function(event,ui){      
+							localStorage.loanAmount=$('#graph-student-slider-purchase').val();
+							localStorage.interestRate=$('#graph-student-slider-rate').val();
+							generateStudentGraph();
+							fixdollor('#graph-student-slider-purchase');
+						});
+						$('#graph-student-slider-rate').bind('change',function(event,ui){
+							localStorage.interestRate=$('#graph-student-slider-rate').val();
+							generateStudentGraph();
+						});
+					});
+				</script>
+		</div>
+	</body>
+</html>

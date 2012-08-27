@@ -1,0 +1,477 @@
+.ui-mobile, .ui-mobile body {
+	height: 100%;
+}
+.ui-body-c {
+	background: #000000 url('http://www.freeenergymedia.com/finance/images/bg-stripe.png') repeat left top;
+	border: 1px solid #B3B3B3;
+	color: #333333;
+	text-shadow:none;
+}
+.ui-field-contain input.ui-input-text, .ui-field-contain textarea.ui-input-text, .ui-field-contain .ui-input-search {
+	display: inline-block;
+	width: 40%;
+	color:#F44800;
+}
+.ui-bar-a {
+	background:transparent;
+}
+.ui-content {
+	border-width: 0;
+	overflow-x: hidden;
+	overflow-y: visible;
+	padding: 15px;
+}
+.ui-bar {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	padding: 0px;
+}
+.ui-field-contain {
+	margin: 0;
+	overflow: visible;
+	padding: 0.5em 0;
+	border-bottom-width: 0px;
+}
+.ui-header {
+	background: #000000 url('images/shine-bg-header.png') repeat-x left top;
+	background-size: 1px 42.4px;
+}
+.ui-footer .ui-btn-up-a {
+	background: #000000 url('images/shine-bg-footer.png') repeat-x left top;
+	background-size: 1px 57px;
+}
+.ui-header .info-icon {
+	background: #000000 url('images/info-icon.png') no-repeat;
+	background-size: 26px 30px;
+}
+label.ui-input-text {
+	display: block;
+	font-size: 11px;
+	font-weight: normal;
+	line-height: 1.4;
+	margin: 0 0 0.3em;
+}
+.ui-btn-inner {
+	display: block;
+	overflow: hidden;
+	padding: 0.2em 5px;
+	position: relative;
+	text-overflow: ellipsis;
+	min-width:0px !important;
+	white-space: nowrap;
+}
+.ui-controlgroup-horizontal {
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+	width: 145px;
+}
+input.ui-input-text, textarea.ui-input-text {
+	background-color: #FFFFFF;
+	display: block;
+	font-size: 15px;
+	line-height: 1.4;
+	/*padding: 0.28em 1.5%;*/
+}
+#output-slider-growth-label, #output-slider-inflation-label, #input-slider-growth-label, #input-slider-inflation-label {
+	float: left;
+	width: 74% !important;
+}
+div.ui-slider {
+	display: inline-block;
+	height: 9px;
+	margin: 0 0 0 0;
+	overflow: visible;
+	padding: 0;
+	position: relative;
+	top: 4px;
+	width: 94%;
+}
+a.ui-slider-handle {
+	background-image: url("http://www.freeenergymedia.com/finance/images/slider-handle.png");
+	height: 16px;
+	margin-left: -2px;
+	margin-top: -10px;
+	position: absolute;
+	top: 50%;
+	width: 17px;
+	z-index: 10;
+}
+.ui-btn-down-b {
+	background: -moz-linear-gradient(top, #00AF7F, #004b37);
+	background: -webkit-linear-gradient(top, #00AF7F, #004b37);
+	border: 1px solid #225377;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px #225377;
+}
+.input-label {
+	background: -moz-linear-gradient(top, #EEEEEE, #DDDDDD);
+	background: -webkit-linear-gradient(top, #EEEEEE, #DDDDDD);
+	border: 1px solid #B3B3B3;
+	color: #333333;
+	display: inline-block;
+	height: 27px;
+	width: 50%;
+}
+.ui-field-contain label.ui-input-text {
+	display: inline-block;
+	margin: 0 2% 0 0;
+	vertical-align: top;
+	width: 49%;
+}
+label.ui-slider {
+	color:#fff;
+}
+.ui-btn-up-a {
+	background: -moz-linear-gradient(center top, #CCCCCC, #333333) repeat scroll 0 0 #333333;
+	border: 0px solid #222222;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px #000000;
+}
+input.ui-slider-input, .ui-field-contain input.ui-slider-input {
+	background: none repeat scroll 0 0 transparent !important;
+	border: medium none;
+	display: inline-block;
+	font-size: 15px;
+	box-shadow: none;
+	color: #00AF7F;
+	font-weight: bold;
+	text-shadow: none;
+	width: 75px;
+	float: right;
+	margin-top: 0px;
+	margin-left: 0px;
+	padding: 0px;
+}
+.ui-icon-income-button {
+	background: #000000 url('images/menu_01.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-invest-button {
+	background: #000000 url('images/menu_02.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-tax-button {
+	background: #000000 url('images/menu_03.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-loan-button {
+	background: #000000 url('images/menu_04.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-save-button {
+	background: #000000 url('images/menu_05.png') no-repeat;
+	background-size: 56px 56px;
+}
+.percent {
+	display:block;
+	color:#00AF7F;
+	font-weight:bold;
+	position: absolute;
+	right: 18px;
+	font-size: 15px;
+	line-height: 21px;
+}
+.dwn-per{
+	float: right;
+	margin: ;
+	margin-top: -32px;
+	margin-right: 39px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.range-slider{
+	padding-right:10px !important;
+}
+.dollor{
+	display:block;
+	color:#00AF7F;
+	font-weight:bold;
+	position: absolute;
+	right: 68px;
+	font-size: 15px;
+	line-height: 21px;
+}
+.slider-container {
+	background:#000;
+	border-radius: 9px;
+	border: 1px solid gray;
+	padding:10px;
+}
+.ui-btn-active {
+	background: -moz-linear-gradient(top, #eb6800, #eb6800);
+	background: -webkit-linear-gradient(top, #eb6800, #eb6800);
+}
+.ui-corner-left {
+	border-bottom-left-radius: 0.9em;
+	border-top-left-radius: 0.9em;
+}
+.ui-corner-right {
+	border-bottom-right-radius: 0.9em;
+	border-top-right-radius: 0.9em;
+}
+.ui-corner-all {
+	border-radius: 0.4em 0.4em 0.4em 0.4em;
+}
+.footer-nav .ui-btn .ui-icon {
+	width: 56px!important;
+	height: 56px!important;
+	margin-left: -15px !important;
+	box-shadow: none!important;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+	margin-left: -27px !important;
+}
+.footer-nav .ui-btn .ui-btn-inner {
+	padding-top: 36px !important;
+}
+.footer-nav a {
+	background-size: 1px 57px;
+	background: #000000 url('images/shine-bg-footer.png') repeat-x left top;
+}
+.footer-nav .ui-icon {
+	top:0px !important;
+	left:28%;
+}
+.ui-btn-hover-a {
+	background: none;
+	border: 0px solid #000000;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px #000000;
+}
+.ui-icon-income-button:hover, .ui-block-a .ui-btn-active .ui-icon-income-button {
+	background: #000000 url('images/active-menu_01.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-invest-button:hover, .ui-block-b .ui-btn-active .ui-icon-invest-button {
+	background: #000000 url('images/active-menu_02.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-tax-button:hover, .ui-block-c .ui-btn-active .ui-icon-tax-button {
+	background: #000000 url('images/active-menu_03.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-loan-button:hover, .ui-block-d .ui-btn-active .ui-icon-loan-button {
+	background: #000000 url('images/active-menu_04.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-icon-save-button:hover, .ui-block-e .ui-btn-active .ui-icon-save-button {
+	background: #000000 url('images/active-menu_05.png') no-repeat;
+	background-size: 56px 56px;
+}
+.ui-header .info-icon .ui-btn-inner {
+	padding: 0.4em 11px 0.5em;
+}
+/***************************CSS FOR LOAN PHASE************************/
+.clear {
+	clear:both;
+}
+#loan-mortgage-input-page .ui-header .ui-controlgroup-horizontal, #loan-mortgage-calculate-page .ui-header .ui-controlgroup-horizontal, #loan-auto-input-page .ui-header .ui-controlgroup-horizontal, #loan-auto-calculate-page .ui-controlgroup-horizontal, #loan-student-input-page .ui-controlgroup-horizontal, #loan-student-calculate-page .ui-controlgroup-horizontal, #loan-auto-graph-page .ui-controlgroup-horizontal, #loan-student-graph-page .ui-controlgroup-horizontal, #mortgage-graph-page .ui-controlgroup-horizontal {
+	width:210px;
+	margin:5px auto 10px auto;
+}
+#loan-mortgage-input-page .ui-field-contain .ui-slider-input {
+	width:87px;
+}
+#input-slider-purchase {
+	/*background:url(images/dollorimg_03.png) 0 3px no-repeat !important;*/
+	text-align:right;
+}
+#input-slider-rate {
+	/*background: url("images/percentageimg_03.png") no-repeat scroll 43px 2px transparent !important;*/
+	text-align: right;
+}
+#loan-mortgage-input-page label.input-label {
+}
+#loan-mortgage-input-page .input-fields, #loan-auto-input-page .input-fields, #loan-student-input-page .input-fields {
+	margin-top:15px;
+	margin-bottom:15px;
+}
+#loan-mortgage-input-page .dataarealeft, #loan-auto-input-page .dataarealeft, #loan-student-input-page .dataarealeft {
+	width:65%;
+	float:left;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:14px;
+	color:#000000;
+	/*background:#d7d7d7;*/
+	line-height:50px;
+	border-top-left-radius:9px;
+	border-bottom-left-radius:9px;
+	text-align:left;
+	margin-bottom:5px;
+}
+#loan-mortgage-input-page .dataarearight, #loan-auto-input-page .dataarearight, #loan-student-input-page .dataarearight {
+	width:35%;
+	float:right;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:16px;
+	color:#00af7f;
+	/*background:#f2f2f2;*/
+	line-height:50px;
+	border-top-right-radius:9px;
+	border-bottom-right-radius:9px;
+	text-align:right;
+}
+#loan-mortgage-input-page .dataarearight input, #loan-auto-input-page .dataarearight input, #loan-student-input-page .dataarearight input {
+	line-height:37px;
+	border-width:0px;
+	border-style:none;
+	font-weight:bold;
+	height:50px;
+	-moz-box-shadow:none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow:none !important;
+	padding-right:36px;
+}
+#loan-mortgage-input-page .dataarearight input{
+	height: 47px !important;
+}
+.dataarearight .inputimage{
+	margin-top: -40px;
+	margin-right: -3px;
+	float: right;
+}
+#loan-mortgage-input-page .result-nav, #loan-mortgage-calculate-page .result-nav, #loan-auto-input-page .result-nav, #loan-auto-calculate-page .result-nav, #loan-student-input-page .result-nav, #loan-student-calculate-page .result-nav, #loan-auto-graph-page .result-nav, #loan-student-graph-page .result-nav, #mortgage-graph-page .result-nav {
+	width:220px;
+	margin:auto;
+}
+#loan-mortgage-input-page .result-nav ul, #loan-mortgage-calculate-page .result-nav ul, #loan-auto-input-page .result-nav ul, #loan-auto-calculate-page .result-nav ul, #loan-student-input-page .result-nav ul, #loan-student-calculate-page .result-nav ul, #loan-auto-graph-page .result-nav ul, #loan-student-graph-page .result-nav ul, #mortgage-graph-page .result-nav ul {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+}
+#loan-mortgage-input-page .result-nav ul li, #loan-mortgage-calculate-page .result-nav ul li, #loan-auto-input-page .result-nav ul li, #loan-auto-calculate-page .result-nav ul li, #loan-student-input-page .result-nav ul li, #loan-student-calculate-page .result-nav ul li, #loan-auto-graph-page .result-nav ul li, #loan-student-graph-page .result-nav ul li, #mortgage-graph-page .result-nav ul li {
+	float:left;
+	width:110px;
+	display:block;
+}
+#loan-mortgage-calculate-page .result-content, #loan-auto-calculate-page .result-content, #loan-student-calculate-page .result-content {
+	background:#000;
+	border-radius: 9px;
+	border: 1px solid gray;
+	padding:10px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:16px;
+	color:#ffffff;
+	line-height: 25px;
+	padding-left: 15px;
+	margin-top:15px;
+	margin-bottom: 10px;
+}
+#loan-mortgage-calculate-page .result-content span, #loan-auto-calculate-page .result-content span, #loan-student-calculate-page .result-content span {
+	color:#00af7f;
+}
+#graph-area {
+	background:black;
+	border-radius: 9px;
+	border: 1px solid gray;
+	padding: 10px;
+	margin-bottom:10px;
+}
+.dataarearight input {
+	color:#00AF7F;
+	text-align:right;
+	padding-right:15px;
+}
+.ui-field-contain input[type=number] {
+	text-align:right;
+	padding-right:32px;
+	-moz-box-shadow:none !important;
+	-webkit-box-shadow:none !important;
+	box-shadow:none !important;
+	
+}
+.input-fields .field-container .dataarealeft {
+	background: #ededed; /* Old browsers */
+	background: -moz-linear-gradient(top, #ededed 0%, #d2d2d2 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(100%, #d2d2d2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ededed 0%, #d2d2d2 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ededed 0%, #d2d2d2 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ededed 0%, #d2d2d2 100%); /* IE10+ */
+	background: linear-gradient(top, #ededed 0%, #d2d2d2 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d2d2d2', GradientType=0 );
+}
+.input-fields .field-container .dataarearight input, .input-fields .field-container .dataarearight {
+	background: #fefefe; /* Old browsers */
+	background: -moz-linear-gradient(top, #fefefe 0%, #e1e1e1 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fefefe), color-stop(100%, #e1e1e1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fefefe 0%, #e1e1e1 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fefefe 0%, #e1e1e1 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #fefefe 0%, #e1e1e1 100%); /* IE10+ */
+	background: linear-gradient(top, #fefefe 0%, #e1e1e1 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e1e1e1', GradientType=0 );
+}
+.slider-container, .result-content, #graph-area {
+	background:#000;
+	border-radius: 9px;
+	border: 1px solid gray;
+	padding:10px;
+	background: #e1faf3; /* Old browsers */
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(225,250,243,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(225,250,243,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(225,250,243,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(225,250,243,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(225,250,243,1) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%, rgba(225,250,243,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e1faf3', GradientType=0 ); /* IE6-9 */
+}
+/* mobile css rebuild */
+.ui-field-contain label.ui-input-text {
+	color:#000000;
+	font-size:14px;
+	font-family:Helvetica, Arial, sans-serif;
+}
+.slider-container .ui-field-contain label {
+	width:55% !important;
+}
+.result-nav .ui-btn-up-c {
+	border-radius: 0 4px 4px 0 !important;
+	background:url(images/buttonbgc_03.png) no-repeat;
+	border:none !important;
+	box-shadow:none !important;
+	color: #FFFFFF;
+	text-shadow: 1px 1px 1px transparent;
+}
+.result-nav .ui-btn-corner-all {
+	border: medium none;
+	border-radius: 0 4px 4px 0 !important;
+	box-shadow: none !important;
+	color: #FFFFFF;
+	text-shadow: 1px 1px 1px transparent;
+	width: 104px;
+}
+.ui-btn-hover-c {
+	background:url(images/buttonbghover.png) no-repeat;
+}
+.ui-key-button{
+	background-image: url('images/right-side-image.png');
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	margin-top: 1px !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.ui-dialog-contain .ui-content .ui-btn-hover-c, #personal-financing-menu .ui-btn-hover-c{
+	background-image:none !important;
+}
+.ui-field-contain #purchase-range{
+	text-align: right;
+	width: 120px;
+	float: right;
+	height: 28px;
+	margin-top: -2px;
+	margin-right: 16px;
+	color: #00AF7F;
+}
